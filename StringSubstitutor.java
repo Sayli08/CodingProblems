@@ -82,7 +82,7 @@ public class StringSubstitutor {
 Here groups are separated by parathenesis (), here group(1)  corresponds to the placeholder name without the percentage signs.
 For instance, if the match is %X%, matcher.group(1) will return X.  
 matcher.group(1) specifically returns the content captured by the first capturing group in the pattern, grpups are seperated by parathenesis (),
-here grpip(1_ which corresponds to the placeholder name without the percentage signs. 
+here group(1) which corresponds to the placeholder name without the percentage signs. 
 
 For instance, if the match is %USER%, matcher.group(1) will return USER.
 
