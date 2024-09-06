@@ -70,4 +70,85 @@ The goal is to calculate the **minimum number of total stops** needed to cover a
 
 ---
 
-You can upload this Markdown file as is. Let me know if you need any adjustments!
+# Solution
+```java
+import java.util.Arrays;
+import java.util.List;
+
+class Result {
+
+    /*
+     * Complete the 'slotWheels' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING_ARRAY history as parameter.
+     */
+
+    public static int slotWheels(List<String> history) {
+        int n = history.size();  // Number of spins
+        int numWheels = history.get(0).length();  // Number of wheels (derived from the length of the first string)
+        int totalStops = 0;
+
+        // Convert the input history into a 2D array of integers
+        int[][] spins = new int[n][numWheels];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < numWheels; j++) {
+                spins[i][j] = Character.getNumericValue(history.get(i).charAt(j));
+            }
+        }
+
+        // Continue until all elements are covered
+        while (true) {
+            int maxValue = 0;
+
+            // Find the maximum value in the entire array
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < numWheels; j++) {
+                    maxValue = Math.max(maxValue, spins[i][j]);
+                }
+            }
+
+            // If maxValue is 0, we've removed all elements, break the loop
+            if (maxValue == 0) {
+                break;
+            }
+
+            // Add this maximum value to the total stops
+            totalStops += maxValue;
+
+            // Remove the largest value less than or equal to maxValue in each row
+            for (int i = 0; i < n; i++) {
+                int maxInRow = 0;
+
+                // Find the largest value in the row that is less than or equal to maxValue
+                for (int j = 0; j < numWheels; j++) {
+                    if (spins[i][j] <= maxValue) {
+                        maxInRow = Math.max(maxInRow, spins[i][j]);
+                    }
+                }
+
+                // Remove the found maxInRow by setting it to 0 (covered)
+                for (int j = 0; j < numWheels; j++) {
+                    if (spins[i][j] == maxInRow) {
+                        spins[i][j] = 0;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return totalStops;
+    }
+
+    public static void main(String[] args) {
+        // Input directly in the code
+        List<String> history = Arrays.asList("712", "246", "365", "312");
+
+        // Call the slotWheels function and print the result
+        int result = slotWheels(history);
+
+        // Output the result
+        System.out.println("Total Stops: " + result);
+    }
+}
+```
