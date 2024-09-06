@@ -152,3 +152,29 @@ class Result {
     }
 }
 ```
+## Explaination
+
+
+
+**Task**:  
+The goal is to calculate the **minimum number of stops** required for the wheels to show all the numbers from each spin.
+
+1. **Step-by-step Process**:  
+   For each set of spins, we first find the **highest number** across all spins. We spin the wheels enough times to display that highest number. Once we've spun the wheels for this highest number, all **smaller numbers** that appear on the wheels in **other spins** will also be covered by those stops.
+
+   **Example**:
+   - Let’s say the first spin is **712**, and the highest number in this spin is **7**.
+   - We will stop the wheels **7 times** because we need to spin them enough to show the largest number, which is **7**.
+   - Now, since the wheels have already spun 7 times, any number **smaller than 7** that appears in **other spins** will also be shown. This means we don’t need additional stops for those smaller numbers.
+
+2. **Why Do We Remove Smaller Numbers?**  
+   After spinning the wheels 7 times, we have already covered any numbers **less than or equal to 7** that appear in **other spins**. For example:
+   - Second spin (`246`): The highest number ≤ 7 is **6**, which is already covered by the 7 stops.
+   - Third spin (`365`): The highest number ≤ 7 is **5**, also covered by the 7 stops.
+   - Fourth spin (`312`): The highest number ≤ 7 is **3**, covered by the same 7 stops.
+
+   Therefore, we **remove** these numbers from their respective rows/spins because they’ve already been covered by the previous stops.
+
+3. **Next Steps**:  
+   After removing **7, 6, 5, and 3**, we repeat the process by finding the next highest number among the remaining spins and continue reducing the numbers until all spins are completely covered.
+
